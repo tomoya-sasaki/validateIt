@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 ```
 
 ```{r, include = FALSE}
@@ -84,7 +84,7 @@ out <- keyATM(docs              = keyATM_docs,    # text input
 
 # stm
 ```{r, message = FALSE}
-# out2 <- stm(documents = heldout$documents, heldout$vocab, K = 10, max.em.its = 50, seed = 250, verbose = FALSE)
+out2 <- stm(documents = heldout$documents, heldout$vocab, K = 10, max.em.its = 50, seed = 250, verbose = FALSE)
 ```
 
 # Create a screen
@@ -135,6 +135,11 @@ T8WSItasks <- validateTopic(type = "T8WSI",
 ```
 
 
-```{r, eval=FALSE}
+```{r}
+WItasks <- validateTopic(type = "WI", 
+                         n = 500,
+                         vocab = out_keyatm[[1]],
+                         beta = out_keyatm[[2]],
+                         thres = 20)
 ```
 

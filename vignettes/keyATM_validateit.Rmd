@@ -149,11 +149,11 @@ allT8WSItasks_rec <- recordTasks(type = "T8WSI", tasks = allT8WSItasks,
 ```{r}
 # send tasks
 # tasksrecord needs to have colname "id" but it is not generated unless you use mixGlod function
-HITids <- sendTasks(hit_type = '', 
-                    hit_layout = '',
+HITids <- sendTasks(hit_type = '31S093JAJ7KL06CMEBC396V5MD9WR7', 
+                    hit_layout = '37IE5URMWEPPY8FHRZ9LHJJ7BUFQEQ',
                     type = "T8WSI",
                     tasksrecord = allT8WSItasks_rec,
-                    tasksids = c(1:10),
+                    tasksids = c(1:5),
                     HITidspath = "testIDs.Rdata")
 ```
 

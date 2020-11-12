@@ -4,7 +4,8 @@
 <div id="hit-instruction">
 <div class="panel panel-primary">
 <div class="panel-body" id="instructionBody">
-  <h3><b>Consent</b></h3>
+
+<h3><b>Consent</b></h3>
 
 <p>By accepting this HIT, you confirm that you have read and understood the
     consent form, that you are willing to participate in this experiment, and that you
@@ -19,19 +20,20 @@
     (your MTurk ID will be replaced
     with an arbitrary alphanumeric code).</p>
 
+
 <h3><b>Attention</b></h3>
 
-<p>Some of these choices will be very clear, but others will require you to use your best judgment. We understand that in many cases it will be hard to tell what the "right" choice is. Use your best judgment, but please be attentive. <b>We have randomly mixed in a number of gold-standard HITs whose answers are less ambiguous to evaluate the quality of your work.</b> If you miss a large number of gold-standard HITs, you may be <b>blocked</b> from continued participation in this study (and future studies).</p>
+<p>Some of these choices will be very clear, but others will require you to use your best judgment. We understand that in many cases it will be hard to tell what the "right" choice is. Use your best judgement, but please be attentive. <b>We have randomly mixed in a number of gold-standard HITs whose answers are less ambiguous to evaluate the quality of your work.</b> If you miss a large number of gold-standard HITs, you may be <b>blocked</b> from continued participation in this study (and future studies).</p>
 
 <p>After you've done a relatively large number of HITs of a specific task structure, your qualification might be temporarily suppressed. This does not mean you've done anything wrong, but we need to ensure that a variety of workers complete our tasks. This is <b>NOT a block</b> and will have <b>NO negative impact</b> on you Mturk record.</p>
 
 <h3><b>Instructions</b></h3>
 
-<p>For each HIT, you will see <b>one short passage</b> and <b>four</b> word sets. Three of the word sets will be related to the passage, but <b>the other one will be out of place</b>.Your job is to pick up the one word set that seems <b>LEAST</b> related to the passage.</p>
+<p>For each HIT, you will see <b>one short label</b> and <b>four</b> word sets. One of the word sets will be related to the label, but <b>the other three will be out of place</b>.Your job is to pick up the one word set that seems <b>MOST</b> related to the label.</p>
 
 <h3><b>Background</b></h3>
 
-<p>The passages and words you see are taken from Japanese Manifesto. These postings can be on any issue or topic. Some postings are about certain legislation, some are about federal or statewide events, and some are about the administration, etc.</p>
+<p>The labels and words you see are taken from U.S. bills. These postings can be on any issue or topic. Some postings are about certain legislation, some are about federal or statewide events, and some are about the administration, etc.</p>
 
 </div>
 </div>
@@ -42,16 +44,16 @@
 <div class="row">
 <div class="col-xs-12">
 <div class="panel panel-primary"><!-- WARNING: the ids "collapseTrigger" and "instructionBody" are being used to enable expand/collapse feature -->
-<div class="panel-heading"><b>Please read the paragraph below and answer the following question&nbsp;</b>​</div>
+<div class="panel-heading"><b>Please read the label below and answer the following question&nbsp;</b>​</div>
 
 <div class="panel-body">
-<p id="instructions">${passage}</p>
+<p id="instructions">${label}</p>
 </div>
 </div>
 </div>
 </div>
 
-<p><strong>After reading the above passage, please click on the set of words below that is most unrelated to passage.</strong></p>
+<p><strong>After reading the above label, please click on the set of words below that is most related to the label.</strong></p>
 
 <div class="radio"><label><input name="radio" type="radio" id="radio1" value="1"/>${word1}</label></div>
 
@@ -70,18 +72,17 @@
 <div class="panel-body" id="instructionBody">
 <h3><b>Attention</b></h3>
 
-<p>Some of these choices will be very clear, but others will require you to use your best judgment. We understand that in many cases it will be hard to tell what the "right" choice is. Use your best judgment, but please be attentive. <b>We have randomly mixed in a number of gold-standard HITs whose answers are less ambiguous to evaluate the quality of your work.</b> If you miss a large number of gold-standard HITs, you may be <b>blocked</b> from continued participation in this study (and future studies).</p>
+<p>Some of these choices will be very clear, but others will require you to use your best judgment. We undrstand that in many cases it will be hard to tell what the "right" choice is. Use your best judgement, but please be attentive. <b>We have randomly mixed in a number of gold-standard HITs whose answers are less ambiguous to evaluate the quality of your work.</b> If you miss a large number of gold-standard HITs, you may be <b>blocked</b> from continued participation in this study (and future studies).</p>
 
 <p>After you've done a relatively large number of HITs of a specific task structure, your qualification might be temporarily surpressed. This does not mean you've done anything wrong, but we need to ensure that a variety of workers complete our tasks. This is <b>NOT a block</b> and will have <b>NO negative impact</b> on you Mturk record.</p>
 
 <h3><b>Instructions</b></h3>
 
-<p>For each HIT, you will see <b>one short passage</b> and <b>four</b> word sets. Three of the word sets will be related to the passage, but <b>the other one will be out of place</b>.Your job is to pick up the one word set that seems <b>LEAST</b> related to the passage.</p>
+<p>For each HIT, you will see <b>one short label</b> and <b>four</b> word sets. Three of the word sets will be related to the label, but <b>the other one will be out of place</b>.Your job is to pick up the one word set that seems <b>LEAST</b> related to the label.</p>
 
 <h3><b>Background</b></h3>
 
-<p>The passages and words you see are taken from Japanese Manifesto. These postings can be on any issue or topic. Some postings are about certain legislation, some are about federal or statewide events, and some are about the administration, etc.</p>
-
+<p>The labels and words you see are taken from U.S. senators' official Facebook postings. These postings can be on any issue or topic. Some postings are about certain legislation, some are about federal or statewide events, and some are about the administration, etc.</p>
 </div>
 </div>
 </div>
@@ -91,7 +92,7 @@
 <div class="row">
 <div class="col-xs-12">
 <div class="panel panel-primary"><!-- WARNING: the ids "collapseTrigger" and "instructionBody" are being used to enable expand/collapse feature -->
-<div class="panel-heading"><b>Please read the paragraph below and answer the following question&nbsp;</b></div>
+<div class="panel-heading"><b>Please read the paraghraph below and answer the following question&nbsp;</b></div>
 
 <div class="panel-body">
 <p id="instructions">Please accept the HIT to see the actual paragraph</p>
@@ -100,7 +101,7 @@
 </div>
 </div>
 
-<p><strong>After reading the above passage, please click on the set of words below that is most unrelated to passage.</strong></p>
+<p><strong>After reading the above label, please click on the set of words below that is most unrelated to label.</strong></p>
 
 <div class="radio"><label><input name="radio" type="radio" id = "radio1" value="1"/>Option 1</label></div>
 

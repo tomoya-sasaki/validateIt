@@ -31,11 +31,14 @@ recordTasks <- function(type, tasks, path){
                                stringsAsFactors = F)
     colnames(optRandom) <- paste0("word", 1:length(optionidx))
   } else if (type == "LI2") {
+    labelindix <- 1
     optionidx <- 2:3
     optRandom <- tasks[,optionidx]
     optRandom <- as.data.frame(t(apply(optRandom, 1, function(x) x[sample(length(x))])),
                                stringsAsFactors = F)
-    colnames(optRandom) <- paste0("word", 1:length(optionidx))
+    optRandom <- cbind.data.frame(tasks[, labelindix], optRandom,
+                                  stringsAsFactors = F)
+    colnames(optRandom) <- c("label", paste0("word", 1:length(optionidx)))
   } else {
     stop("Please specify a validate task type.")
   }

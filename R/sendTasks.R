@@ -27,19 +27,22 @@ sendTasks <- function(hit_type = NULL,
                       batch_annotation = NULL){
 
   if(is.null(tasksids)){
-    tasksids <- tasksrecord[[1]][,"id"]
+    tasksids <- tasksrecord[[1]][, "id"]
   }
   tasksids <- sort(tasksids)
-  tosend <- tasksrecord[[2]][tasksrecord[[1]][,"id"] %in% tasksids,]
+  tosend <- tasksrecord[[2]][tasksrecord[[1]][, "id"] %in% tasksids,]
 
   if(type == "R4WSI0" | type == "T8WSI" | type == "LI" | type == "OL"){
     hit_param_names <- c('passage', 'word1', 'word2', 'word3', 'word4')
   } else if (type == "WI"){
     hit_param_names <- c('word1', 'word2', 'word3', 'word4', 'word5')
-  } else if (type == "R4WSI" | type == "LI4"){
+  } else if (type == "R4WSI"){
     hit_param_names <- c('word1', 'word2', 'word3', 'word4')
   } else if (type == "LI2") {
     hit_param_names <- c('label', 'word1', 'word2')
+    tosend <- tosend[, c(1:3)]
+  } else if (type == "LI4") {
+    hit_param_names <- c('label', 'word1', 'word2', 'word3', 'word4')
   } else {
     stop("Invalid task types")
   }

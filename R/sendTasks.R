@@ -39,7 +39,7 @@ sendTasks <- function(hit_type = NULL,
   } else if (type == "R4WSI" | type == "LI4"){
     hit_param_names <- c('word1', 'word2', 'word3', 'word4')
   } else if (type == "LI2") {
-    hit_param_names <- c('word1', 'word2')
+    hit_param_names <- c('label', 'word1', 'word2')
   } else {
     stop("Invalid task types")
   }

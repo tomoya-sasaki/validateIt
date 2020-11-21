@@ -87,43 +87,48 @@ task_mat2 <- cbind(task_mat2, ind)
 
 task_recorded <- recordTasks(type = "LI2", tasks = task_mat2, path = "output/base/LI2tasks_test.Rdata")
 
+HITids <- sendTasks(hit_type = "",
+                    hit_layout = "",
+                    type = "LI2",
+                    tasksrecord = task_recorded,
+                    HITidspath = "LI2_testIDs.Rdata")
 
-hit_param_names <- c('label', 'word1', 'word2')
+# hit_param_names <- c('label', 'word1', 'word2')
 
-# check Mturk 
-hit_type <- "3VMQHMXNFUPVGXFL2PY8HCN9THQRPT"
-hit_layout <- "31IV0VNEWDWVSOGL43SWYP580MKSWC"
+# # check Mturk 
+# hit_type <- "3VMQHMXNFUPVGXFL2PY8HCN9THQRPT"
+# hit_layout <- "31IV0VNEWDWVSOGL43SWYP580MKSWC"
 
-# prepare sending tasks
-batch_annotation <- NULL
-HITidspath <- NULL
-n_assignments <- '1'
-expire_in_seconds <- as.character(60 * 60 * 8)
-tosend <- task_mat[, c(1:3)]
+# # prepare sending tasks
+# batch_annotation <- NULL
+# HITidspath <- NULL
+# n_assignments <- '1'
+# expire_in_seconds <- as.character(60 * 60 * 8)
+# tosend <- task_mat[, c(1:3)]
 
-tasksids <- 1:5 # change this
-if (length(tasksids) > N) stop("Task id needs to be smaller than the number of tasks")
+# tasksids <- 1:5 # change this
+# if (length(tasksids) > N) stop("Task id needs to be smaller than the number of tasks")
 
-current_HIT_ids <- rep(NA, nrow(tosend))
-map_ids <- as.data.frame(matrix(NA, nrow = nrow(tosend), ncol = 2))
-colnames(map_ids) <- c("tasksids", "Mturkids")
+# current_HIT_ids <- rep(NA, nrow(tosend))
+# map_ids <- as.data.frame(matrix(NA, nrow = nrow(tosend), ncol = 2))
+# colnames(map_ids) <- c("tasksids", "Mturkids")
 
-for(i in 1:nrow(tosend)){
-  hit_params <- list()
-  for(j in 1:length(hit_param_names)){
-    hit_params[[j]] <- list(Name = hit_param_names[j],
-                            Value = tosend[i, j])
-  }
-  current_HIT_ids[i] <- suppressMessages(CreateHIT(hit.type = hit_type,
-                                                   hitlayoutid = hit_layout,
-                                                   hitlayoutparameters = hit_params,
-                                                   assignments = n_assignments,
-                                                   expiration = expire_in_seconds,
-                                                   annotation = batch_annotation,
-                                                   verbose = FALSE))$HITId
+# for(i in 1:nrow(tosend)){
+#   hit_params <- list()
+#   for(j in 1:length(hit_param_names)){
+#     hit_params[[j]] <- list(Name = hit_param_names[j],
+#                             Value = tosend[i, j])
+#   }
+#   current_HIT_ids[i] <- suppressMessages(CreateHIT(hit.type = hit_type,
+#                                                    hitlayoutid = hit_layout,
+#                                                    hitlayoutparameters = hit_params,
+#                                                    assignments = n_assignments,
+#                                                    expiration = expire_in_seconds,
+#                                                    annotation = batch_annotation,
+#                                                    verbose = FALSE))$HITId
 
-  map_ids[i,] <- cbind(tasksids[i], current_HIT_ids[i])
-}
+#   map_ids[i,] <- cbind(tasksids[i], current_HIT_ids[i])
+# }
 
 
 ##############################################

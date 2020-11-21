@@ -24,7 +24,7 @@ recordTasks <- function(type, tasks, path){
     optRandom <- cbind.data.frame(tasks[,docindix], optRandom,
                                   stringsAsFactors = F)
     colnames(optRandom) <- c("passage", paste0("word", 1:length(optionidx)))
-  } else if (type == "R4WSI" | type = "LI4"){
+  } else if (type == "R4WSI" | type == "LI4"){
     optionidx <- 2:5
     optRandom <- tasks[,optionidx]
     optRandom <- as.data.frame(t(apply(optRandom, 1, function(x) x[sample(length(x))])),

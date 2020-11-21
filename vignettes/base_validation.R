@@ -24,7 +24,7 @@ top_words_lda <- function(x, n = 10, measure = c("probability", "lift")){
 
 # load data
 # out_key <- readRDS("data/base/fitted/bill_key_extraK0_iter3000_randnum3_paper.rds")
-# out_lda <- readRDS("output/base/tmp/bill_lda_extraK0_iter3000_randnum3_paper.rds")
+# out_lda <- readRDS("output/base/tmp/bill_lda_extraK0_iter3000_randnum5_paper.rds")
 
 # extract topwords
 topic_label <- gsub("^[0-9]+_", "", names(out_key$keywords_raw))
@@ -35,8 +35,8 @@ top_lda <- top_words_lda(out_lda)
 colnames(top_key) <- topic_label
 colnames(top_lda) <- topic_label
 
-top_key_con <- apply(top_key, 2, function(x) {y <- gsub("\\[.*\\]", "", x); paste(y, collapse = " ")})
-top_lda_con <- apply(top_lda, 2, function(x) {paste(x, collapse = " ")})
+top_key <- apply(top_key, 2, function(x) {gsub("\\[.*\\]", "", x)})
+# top_lda_con <- apply(top_lda, 2, function(x) {paste(x, collapse = " ")})
 
 K <- ncol(top_key)
 
@@ -52,15 +52,40 @@ AccountBalance()
 ##############################################
 ## Across comparison keyATM VS LDA
 ##############################################
-N <- 10
-task_mat <- matrix("", ncol = 3, nrow = N)
+N <- 15
+task_mat <- data.frame(matrix("", ncol = 4, nrow = N), stringsAsFactors = FALSE)
 
+set.seed(123)
 for (i in 1:N) {
   j <- sample(1:K, 1)
   task_mat[i, 1] <- topic_label[j]
-  task_mat[i, 2] <- top_key_con[j]
-  task_mat[i, 3] <- top_lda_con[j]
+  task_mat[i, 2] <- paste(sample(top_key[, j], 5), collapse = " ")
+  task_mat[i, 3] <- paste(sample(top_lda[, j], 5), collapse = " ") 
+  task_mat[i, 4] <- as.integer(0)
 }
+
+gold_std <- read.csv("data/base/bill_validation_gold_task.csv", header = FALSE, stringsAsFactor = FALSE)
+colnames(gold_std) <- paste0("X", 1:4)
+# task_mat <- rbind(task_mat %>% data.frame(stringsAsFactors =  FALSE), gold_std)
+# shuffle the order of tasks to make sure gold standard tasks appear in the same frequency
+task_mat2 <- mixGold(tasks = task_mat, golds = gold_std)
+
+# shuffle the choices in each task
+# flip rows if 1
+ind <- sample(0:1, size = N + nrow(gold_std), replace = TRUE)
+
+for (i in 1:N) {
+  if (ind[i] == 1) {
+    word1 <- task_mat2[i, 3] 
+    word2 <- task_mat2[i, 2]
+    task_mat2[i, 2] <- word1
+    task_mat2[i, 3] <- word2
+  }
+}
+
+task_mat2 <- cbind(task_mat2, ind)
+
+task_recorded <- recordTasks(type = "LI2", tasks = task_mat2, path = "output/base/LI2tasks_test.Rdata")
 
 
 hit_param_names <- c('label', 'word1', 'word2')
@@ -74,7 +99,7 @@ batch_annotation <- NULL
 HITidspath <- NULL
 n_assignments <- '1'
 expire_in_seconds <- as.character(60 * 60 * 8)
-tosend <- task_mat
+tosend <- task_mat[, c(1:3)]
 
 tasksids <- 1:5 # change this
 if (length(tasksids) > N) stop("Task id needs to be smaller than the number of tasks")
@@ -118,10 +143,10 @@ for (i in 1:N) {
 
   ks2 <- ks[!ks %in% j]
 
-  k <- sample(ks2, 4) # incorrect answers
+  k <- sample(ks2, 3) # incorrect answers
   vec <- sample(c(k, j)) # shuffle indexes 
   tmp <- top_key_con[vec] # create a word vector to show
-  task_mat[i, 2:5] <- tmps
+  task_mat[i, 2:5] <- tmp
 
   correct_answer[i, 1] <- j # true id
   correct_answer[i, 2] <- which(vec == j) # which word is true id

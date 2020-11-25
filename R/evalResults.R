@@ -38,10 +38,19 @@ evalResults <- function(results, key, type = NULL){
       }
       indicator <- c(indicator, correct)
     }
-  } else if (type == "WI"){
+  } else if (type == "WI"){ # extra conditions? can be merged to the previous choice?
     for(i in 1:nrow(results)){
       if (results[i,6] != 0){
         correct <- as.vector(key[[2]][i,])[as.numeric(results[i,6])] == as.character(key[[1]][i, (ncol(key[[1]])-1)])
+      } else {
+        correct <- NA
+      }
+      indicator <- c(indicator, correct)
+    }
+  } else if (type == "LI2") {
+    for (i in 1:nrow(results)) {
+      if (results[i, 6] != 0) {
+        correct <- as.vector(key[[2]][i, ])[as.numeric(results[i, 6]) + 1] == as.character(key[[1]][i, 2:3][key[[1]]$ind[i]])
       } else {
         correct <- NA
       }

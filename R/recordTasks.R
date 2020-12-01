@@ -24,7 +24,7 @@ recordTasks <- function(type, tasks, path){
     optRandom <- cbind.data.frame(tasks[,docindix], optRandom,
                                   stringsAsFactors = F)
     colnames(optRandom) <- c("passage", paste0("word", 1:length(optionidx)))
-  } else if (type == "R4WSI" | type == "LI4"){
+  } else if (type == "R4WSI"){
     optionidx <- 2:5
     optRandom <- tasks[,optionidx]
     optRandom <- as.data.frame(t(apply(optRandom, 1, function(x) x[sample(length(x))])),
@@ -35,9 +35,18 @@ recordTasks <- function(type, tasks, path){
     optionidx <- 2:3
     optRandom <- tasks[,optionidx]
     optRandom <- as.data.frame(t(apply(optRandom, 1, function(x) x[sample(length(x))])),
-                               stringsAsFactors = F)
-    optRandom <- cbind.data.frame(tasks[, labelindix], optRandom,
-                                  stringsAsFactors = F)
+                               stringsAsFactors = FALSE)
+    optRandom <- cbind.data.frame(tasks[, labelindex], optRandom,
+                                  stringsAsFactors = FALSE)
+    colnames(optRandom) <- c("label", paste0("word", 1:length(optionidx)))
+  } else if (type == "LI4") {
+    labelindex <- 1
+    optionidx <- 2:5
+    optRandom <- tasks[, optionidx]
+    optRandom <- as.data.frame(t(apply(optRandom, 1, function(x) x[sample(length(x))])),
+                               stringsAsFactors = FALSE)
+    optRandom <- cbind.data.frame(tasks[, labelindex], optRandom,
+                                  stringsAsFactors = FALSE)
     colnames(optRandom) <- c("label", paste0("word", 1:length(optionidx)))
   } else {
     stop("Please specify a validate task type.")

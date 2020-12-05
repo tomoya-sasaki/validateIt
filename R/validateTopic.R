@@ -26,7 +26,8 @@ validateTopic <- function(type, n, text = NULL, vocab, beta, theta = NULL, thres
       stop("beta matrix does not correspond with the vocabulary.")
     }
     orderbeta <- t(apply(beta, 1, order, decreasing = TRUE))
-    topic <- rep(1:nrow(beta), length.out = n)
+    # topic <- rep(1:nrow(beta), length.out = n)
+    topic <- sample(1:nrow(beta), size = n, replace = TRUE) # randomly select topic
     out <- matrix(NA, ncol = 6, nrow = n)
     colnames(out) <- c('topic', 'opt1', 'opt2', 'opt3', 'opt4', 'optcrt')
     for(i in 1:n){
@@ -92,7 +93,8 @@ validateTopic <- function(type, n, text = NULL, vocab, beta, theta = NULL, thres
       stop("beta matrix does not correspond with the vocabulary.")
     }
     orderbeta <- t(apply(beta, 1, order, decreasing = TRUE))
-    topic <- rep(1:nrow(beta), length.out = n)
+    # topic <- rep(1:nrow(beta), length.out = n)
+    topic <- sample(1:nrow(beta), size = n, replace = TRUE) # randomly select topic
     out <- matrix(NA, ncol = 5, nrow = n)
     colnames(out) <- c('topic', 'opt1', 'opt2', 'opt3', 'optcrt')
     for(i in 1:n){
@@ -108,6 +110,53 @@ validateTopic <- function(type, n, text = NULL, vocab, beta, theta = NULL, thres
                    toString(non.intr[asgn.n.intr==2]),
                    toString(non.intr[asgn.n.intr==3]),
                    toString(intr))
+    }
+  } else if (type == "R4WSI2"){
+    if (is.vector(vocab)){
+      vocab <- matrix(vocab, nrow = nrow(beta), ncol = length(vocab), byrow = T)
+    }
+    if (ncol(vocab) != ncol(beta)){
+      stop("beta matrix does not correspond with the vocabulary.")
+    }
+    orderbeta <- t(apply(beta, 1, order, decreasing = TRUE))
+    # topic <- rep(1:nrow(beta), length.out = n)
+    topic <- sample(1:nrow(beta), size = n, replace = TRUE) # randomly select topic
+    out <- matrix(NA, ncol = 6, nrow = n)
+    colnames(out) <- c('topic', 'topic_crt','opt1', 'opt2', 'opt3', 'optcrt')
+    for(i in 1:n){
+      k <- topic[i]
+      non.intr <- as.character(sample(vocab[k, orderbeta[k, 1:thres]], 12,
+                                      prob = beta[k, orderbeta[k, 1:thres]]))
+      intr.k <- sample((1:nrow(beta))[-k], 1)
+      intr <- as.character(sample(vocab[intr.k, orderbeta[intr.k, 1:thres]], 4,
+                                  prob = beta[intr.k, orderbeta[intr.k, 1:thres]]))
+      asgn.n.intr <- sample(c(rep(1:3, 4)))
+      out[i,] <- c(k, intr.k,
+                   toString(non.intr[asgn.n.intr==1]),
+                   toString(non.intr[asgn.n.intr==2]),
+                   toString(non.intr[asgn.n.intr==3]),
+                   toString(intr))
+    }
+  } else if (type == "WI2") {
+    if (is.vector(vocab)){
+      vocab <- matrix(vocab, nrow = nrow(beta), ncol = length(vocab), byrow = T)
+    }
+    if (ncol(vocab) != ncol(beta)){
+      stop("beta matrix does not correspond with the vocabulary.")
+    }
+    orderbeta <- t(apply(beta, 1, order, decreasing = TRUE))
+    # topic <- rep(1:nrow(beta), length.out = n)
+    topic <- sample(1:nrow(beta), size = n, replace = TRUE) # randomly select topic
+    out <- matrix(NA, ncol = 7, nrow = n)
+    colnames(out) <- c('topic', 'topic_crt', 'opt1', 'opt2', 'opt3', 'opt4', 'optcrt')
+    for(i in 1:n){
+      k <- topic[i]
+      non.intr <- as.character(sample(vocab[k, orderbeta[k, 1:thres]], 4,
+                                      prob = beta[k, orderbeta[k, 1:thres]]))
+      intr.k <- sample((1:nrow(beta))[-k], 1)
+      intr <- as.character(sample(vocab[intr.k, orderbeta[intr.k, 1:thres]], 1,
+                                  prob = beta[intr.k, orderbeta[intr.k, 1:thres]]))
+      out[i,] <- c(k, intr.k, non.intr, intr)
     }
   } else {
     stop("Please specify a valid task structure.")

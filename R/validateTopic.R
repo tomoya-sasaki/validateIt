@@ -122,7 +122,7 @@ validateTopic <- function(type, n, text = NULL, vocab, beta, theta = NULL, thres
     # topic <- rep(1:nrow(beta), length.out = n)
     topic <- sample(1:nrow(beta), size = n, replace = TRUE) # randomly select topic
     out <- matrix(NA, ncol = 6, nrow = n)
-    colnames(out) <- c('topic', 'topic_crt','opt1', 'opt2', 'opt3', 'optcrt')
+    colnames(out) <- c('topic', 'topiccrt','opt1', 'opt2', 'opt3', 'optcrt')
     for(i in 1:n){
       k <- topic[i]
       non.intr <- as.character(sample(vocab[k, orderbeta[k, 1:thres]], 12,
@@ -148,7 +148,7 @@ validateTopic <- function(type, n, text = NULL, vocab, beta, theta = NULL, thres
     # topic <- rep(1:nrow(beta), length.out = n)
     topic <- sample(1:nrow(beta), size = n, replace = TRUE) # randomly select topic
     out <- matrix(NA, ncol = 7, nrow = n)
-    colnames(out) <- c('topic', 'topic_crt', 'opt1', 'opt2', 'opt3', 'opt4', 'optcrt')
+    colnames(out) <- c('topic', 'topiccrt', 'opt1', 'opt2', 'opt3', 'opt4', 'optcrt')
     for(i in 1:n){
       k <- topic[i]
       non.intr <- as.character(sample(vocab[k, orderbeta[k, 1:thres]], 4,

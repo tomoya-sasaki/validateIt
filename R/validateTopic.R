@@ -26,8 +26,8 @@ validateTopic <- function(type, n, text = NULL, vocab, beta, theta = NULL, thres
       stop("beta matrix does not correspond with the vocabulary.")
     }
     orderbeta <- t(apply(beta, 1, order, decreasing = TRUE))
-    # topic <- rep(1:nrow(beta), length.out = n)
-    topic <- sample(1:nrow(beta), size = n, replace = TRUE) # randomly select topic
+    topic <- rep(1:nrow(beta), length.out = n)
+    # topic <- sample(1:nrow(beta), size = n, replace = TRUE) # randomly select topic
     out <- matrix(NA, ncol = 6, nrow = n)
     colnames(out) <- c('topic', 'opt1', 'opt2', 'opt3', 'opt4', 'optcrt')
     for(i in 1:n){
@@ -93,8 +93,8 @@ validateTopic <- function(type, n, text = NULL, vocab, beta, theta = NULL, thres
       stop("beta matrix does not correspond with the vocabulary.")
     }
     orderbeta <- t(apply(beta, 1, order, decreasing = TRUE))
-    # topic <- rep(1:nrow(beta), length.out = n)
-    topic <- sample(1:nrow(beta), size = n, replace = TRUE) # randomly select topic
+    topic <- rep(1:nrow(beta), length.out = n)
+    # topic <- sample(1:nrow(beta), size = n, replace = TRUE) # randomly select topic
     out <- matrix(NA, ncol = 5, nrow = n)
     colnames(out) <- c('topic', 'opt1', 'opt2', 'opt3', 'optcrt')
     for(i in 1:n){
